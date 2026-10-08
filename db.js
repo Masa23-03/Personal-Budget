@@ -41,7 +41,12 @@ const validateEnvelope = (instance) => {
     instance.monthlyLimit,
     limitErrorMessage,
   );
-  if (instance.monthlyLimit === 0) throw new Error(limitErrorMessage);
+  if (
+    instance.monthlyLimit === 0 ||
+    instance.monthlyLimit > getRemainingBudget()
+  )
+    throw new Error(limitErrorMessage);
+
   instance.balance = validateNumber(instance.balance, balanceErrorMessage);
   if (instance.balance > instance.monthlyLimit)
     throw new Error("Balance cannot exceed monthly limit");
