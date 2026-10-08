@@ -1,5 +1,5 @@
 const express = require("express");
-const { router } = require("./envelope.js");
+const router = require("./envelope.js");
 const app = express();
 app.use(express.json());
 app.get("/", (req, res, next) => {
