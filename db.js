@@ -1,6 +1,6 @@
 const envelopes = [];
 let id = 1;
-
+let totalBudget = 0;
 const createEnvelope = (name, monthlyLimit, balance) => {
   return {
     id: id++,
@@ -54,6 +54,19 @@ const getOneFromDB = (id) => {
   const elementIndex = envelopes.findIndex((element) => element.id === id);
   if (elementIndex === -1) return null;
   return envelopes[elementIndex];
+};
+const addBudget = (budget) => {
+  if (budget <= 0) throw new Error("Budget Should be > 0");
+  totalBudget = budget;
+  return totalBudget;
+};
+const getAllocatedBudget = () => {
+  return envelopes.reduce((total, envelope) => {
+    return total + envelope.monthlyLimit;
+  }, 0);
+};
+const getRemainingBudget = () => {
+  return totalBudget - getAllocatedBudget();
 };
 module.exports = {
   getAllFromDB,
